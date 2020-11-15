@@ -1,0 +1,22 @@
+from sklearn.linear_model import LinearRegression
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('/Users/user/Desktop/test.csv')
+df.head()
+X = df['hand']
+y = df['size']
+#print(X.values.reshape(-1,1))
+m,b = np.polyfit(X,y,1)
+plt.plot(X, m*X + b)
+plt.plot(X, y, 'o')
+plt.title('Linear Regression')
+plt.xlabel('HD')
+plt.ylabel('DK')
+line_fitter = LinearRegression()
+line_fitter.fit(X.values.reshape(-1,1), y.values)
+test_y = pd.Series(line_fitter.predict([[20]]))
+test_X = pd.Series([20])
+plt.plot(test_X,test_y,'o')
+plt.show()
